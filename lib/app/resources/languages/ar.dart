@@ -1,0 +1,21 @@
+final Map<String, String> ar = {
+  'Home': 'المنزل',
+  'Email': 'البريد الإلكتروني',
+  'Phone': 'رقم الهاتف',
+  'Password': 'كلمة المرور',
+  'Offers': 'العروض فقط',
+  'Resend Otp after': 'إعادة إرسال بعد',
+  'Resend Otp': 'إعادة إرسال',
+  'Do not receive OTP?': 'لم تستلم رمز التحقق؟ ',
+  'Something went wrong': 'حدث خطأ ما',
+  "Connection timeout": "انتهت مهلة الاتصال",
+  "Failed to resend OTP": "فشل في إعادة إرسال رمز التحقق",
+  "Send timeout": "انتهت مهلة الإرسال",
+  "Receive timeout": "انتهت مهلة الاستقبال",
+  "Some fields are invalid": "بعض الحقول غير صالحة",
+  "Bad response error": "خطأ في الاستجابة",
+  "Request cancelled": "تم إلغاء الطلب",
+  "Unknown error": "خطأ غير معروف",
+  "Bad certificate": "شهادة غير صالحة",
+  "Connection error": "خطأ في الاتصال"
+};
