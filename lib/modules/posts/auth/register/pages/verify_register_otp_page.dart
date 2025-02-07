@@ -33,15 +33,17 @@ class VerifyRegisterOtpPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Icon(Icons.check_circle_outline, size: 60),
-                  Text('Verify OTP'.tr)
+                  Text('Enter the verification code'.tr)
                       .titleLarge(context)
                       .bold()
                       .paddingSymmetric(vertical: 10),
-                  Text('Enter your data to receive OTP'.tr)
-                      .titleMedium(context),
+                  Text('We have sent you the verification code'.tr)
+                      .labelSmall(context)
+                      .bold(),
                 ],
               ),
               formController: controller,
+              submitLabel: 'Verify'.tr,
             ),
             OtpTimerWidget(
               remainingTime: controller.remainingTime,

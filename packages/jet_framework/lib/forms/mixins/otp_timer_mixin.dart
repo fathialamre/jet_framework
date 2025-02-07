@@ -46,23 +46,18 @@ class OtpTimerWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Do not receive OTP?'.tr,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+              'Do not receive code?'.tr,
+            ).bold(),
             remainingTime.value > 0
-                ? Text('${'Resend Otp after'.tr} $formattedTime')
+                ? Text('${'Resend code after'.tr} $formattedTime')
                     .color(
-                      Theme.of(context).colorScheme.secondary,
+                      Theme.of(context).colorScheme.primary,
                     )
-                    .labelMedium(context)
+                    .titleSmall(context)
                     .bold()
                     .paddingOnly(top: 18)
                 : JetButton.text(
-                    label: 'Resend Otp'.tr,
+                    label: 'Resend code'.tr,
                     onPressed: remainingTime.value == 0
                         ? () async {
                             await resendOtp();
@@ -72,7 +67,7 @@ class OtpTimerWidget extends StatelessWidget {
                       textStyle: WidgetStateProperty.all(
                         Theme.of(context)
                             .textTheme
-                            .labelMedium
+                            .titleSmall
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),

@@ -13,6 +13,7 @@ class JetForm<T> extends StatelessWidget {
     this.header,
     this.dismissKeyboard = true,
     this.footer,
+    this.submitLabel,
     required this.formController,
   });
 
@@ -23,6 +24,7 @@ class JetForm<T> extends StatelessWidget {
 
   /// Automatically hides the keyboard on submit.
   final bool dismissKeyboard;
+  final String? submitLabel;
 
   /// Optional footer widget builder.
   final Widget Function(BuildContext context)? footer;
@@ -48,7 +50,7 @@ class JetForm<T> extends StatelessWidget {
                 ? footer!(context)
                 : JetButton.elevated(
                     expanded: true,
-                    label: 'Submit'.tr,
+                    label: submitLabel ?? 'Submit'.tr,
                     onPressed: () async {
                       await formController.submit();
                     },

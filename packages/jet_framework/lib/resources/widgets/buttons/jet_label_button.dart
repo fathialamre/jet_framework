@@ -50,8 +50,7 @@ class JetTextButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Obx(
         () => _isLoading.value
-            ? JetApp.style
-                .buttonLoader // Replace with your loading indicator widget
+            ? JetApp.style.buttonLoader(context)
             : TextButton(
                 onPressed: () async {
                   if (isFuture) {

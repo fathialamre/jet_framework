@@ -7,6 +7,7 @@ import 'package:jet_app/modules/posts/auth/register/services/register_service.da
 import 'package:jet_framework/bindings/jet_injector.dart';
 import 'package:jet_framework/forms/jet_filed.dart';
 import 'package:jet_framework/forms/jet_form_controller.dart';
+import 'package:jet_framework/forms/jet_pin_filed.dart';
 import 'package:jet_framework/forms/mixins/otp_timer_mixin.dart';
 import 'package:jet_framework/helpers/helper.dart';
 import 'package:jet_framework/jet_framework.dart';
@@ -20,8 +21,12 @@ class VerifyAndRegisterController extends JetFormController with OtpTimerMixin {
 
   @override
   List<JetField> get fields => [
-        FormBuilderOtpField(
+        JetPinField(
           name: 'otp',
+          validator: JetValidator.compose([
+            JetValidator.required(),
+            JetValidator.minLength(6),
+          ]),
         )
       ];
 

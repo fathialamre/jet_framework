@@ -17,5 +17,12 @@ final Map<String, String> ar = {
   "Request cancelled": "تم إلغاء الطلب",
   "Unknown error": "خطأ غير معروف",
   "Bad certificate": "شهادة غير صالحة",
-  "Connection error": "خطأ في الاتصال"
+  "Connection error": "خطأ في الاتصال",
+  "Enter your data to receive code": "أدخل بياناتك لتلقي الرمز",
+  "We have sent you the verification code": "لقد أرسلنا لك رمز التحقق",
+  "Enter the verification code": "أدخل رمز التحقق",
+  "Do not receive code?": "لم تستلم الرمز؟",
+  "Resend code after": "إعادة إرسال بعد",
+  "Resend code": "إعادة إرسال",
+  "Verify": "تحقق",
 };

@@ -16,8 +16,8 @@ class LoginController extends JetFormController<User?, LoginRequest> {
           name: 'phone',
           initialValue: '0913335396',
           decoration: InputDecoration(
-            labelText: 'Phone'.tr,
             prefixIcon: const Icon(Icons.phone),
+            hintText: '09xxxxxxxx',
           ),
           validator: JetValidator.compose([
             JetValidator.required(),
@@ -29,7 +29,7 @@ class LoginController extends JetFormController<User?, LoginRequest> {
         JetTextField(
           name: 'password',
           decoration: InputDecoration(
-            labelText: 'Password'.tr,
+            hintText: 'Password'.tr,
             prefixIcon: const Icon(Icons.password),
           ),
           initialValue: 'password',

@@ -18,7 +18,7 @@ class JetTheme implements JetBaseTheme {
   @override
   ThemeData get light => FlexThemeData.light(
         fontFamily: fontFamily,
-        scheme: FlexScheme.blue,
+        scheme: FlexScheme.green,
         surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
         blendLevel: 2,
         subThemesData: const FlexSubThemesData(
@@ -71,7 +71,7 @@ class JetTheme implements JetBaseTheme {
   @override
   ThemeData get dark => FlexThemeData.dark(
         fontFamily: fontFamily,
-        scheme: FlexScheme.blue,
+        scheme: FlexScheme.green,
         surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
         blendLevel: 8,
         subThemesData: const FlexSubThemesData(

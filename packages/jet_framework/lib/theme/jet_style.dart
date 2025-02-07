@@ -16,7 +16,10 @@ abstract class JetBaseStyle {
   /// Returns a custom app loader widget.
   Widget get appLoader => JetLoader();
 
-  Widget get buttonLoader => CircularProgressIndicator();
+  Widget buttonLoader(BuildContext context) => CircularProgressIndicator(
+        strokeWidth: 2,
+        color: Theme.of(context).colorScheme.primary,
+      );
 
   /// Returns the current theme based on the selected scheme.
   JetTheme get theme => JetTheme(scheme: scheme, fontFamily: fontFamily);

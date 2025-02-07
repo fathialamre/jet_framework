@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jet_framework/bindings/jet_injector.dart';
 
 enum ButtonAlignment {
   left,
@@ -123,10 +124,7 @@ class JetButton extends StatelessWidget {
           ? SizedBox(
               height: 24,
               width: 24,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              child: JetApp.style.buttonLoader(context),
             )
           : Row(
               mainAxisSize: MainAxisSize.min,
