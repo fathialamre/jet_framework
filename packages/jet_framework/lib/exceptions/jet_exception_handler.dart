@@ -12,7 +12,13 @@ class JetErrorHandler {
 
   Map<String, String>? formErrors(Object error, {bool showToast = false}) {
     if (error is DioException) {
-      return extractValidationMessages(error, showToast: showToast);
+      if (error.response?.statusCode == 422) {
+        return validationMessages(error, showToast: showToast);
+      } else {
+        if (showToast) {
+          showError(dioError(error));
+        }
+      }
     }
     return null;
   }
@@ -26,9 +32,16 @@ class JetErrorHandler {
       case DioExceptionType.receiveTimeout:
         return 'Receive timeout'.tr;
       case DioExceptionType.badResponse:
-        return error.response?.statusCode == 422
-            ? 'Some fields are invalid'.tr
-            : 'Bad response error'.tr;
+        final response = error.response;
+        switch (error.response?.statusCode) {
+          case 401:
+            return response?.data['message'] ?? 'Unauthorized'.tr;
+          case 422:
+            return 'Some fields are invalid'.tr;
+          default:
+            return 'Bad response error'.tr;
+        }
+
       case DioExceptionType.cancel:
         return 'Request cancelled'.tr;
       case DioExceptionType.unknown:
@@ -40,12 +53,10 @@ class JetErrorHandler {
     }
   }
 
-  Map<String, String>? extractValidationMessages(
+  Map<String, String>? validationMessages(
     DioException error, {
     bool showToast = false,
   }) {
-    if (error.response?.statusCode != 422) return null;
-
     final responseData = error.response?.data;
     if (responseData is! Map<String, dynamic>) return null;
 

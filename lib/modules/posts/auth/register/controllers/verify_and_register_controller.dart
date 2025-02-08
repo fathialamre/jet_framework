@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:jet_app/modules/posts/auth/login/models/user.dart';
 import 'package:jet_app/modules/posts/auth/register/controllers/send_otp_controller.dart';
 import 'package:jet_app/modules/posts/auth/register/models/otp_request.dart';
 import 'package:jet_app/modules/posts/auth/register/models/register_request.dart';
 import 'package:jet_app/modules/posts/auth/register/services/register_service.dart';
+import 'package:jet_framework/auth/auth.dart';
 import 'package:jet_framework/bindings/jet_injector.dart';
 import 'package:jet_framework/forms/jet_filed.dart';
 import 'package:jet_framework/forms/jet_form_controller.dart';
@@ -31,7 +33,7 @@ class VerifyAndRegisterController extends JetFormController with OtpTimerMixin {
       ];
 
   @override
-  Future<User?> submitAction() {
+  Future<User?> action() {
     final OtpRequest otpRequest = routeArgs('request');
     final finalRequest = RegisterRequest(
       phone: otpRequest.phone,
@@ -45,12 +47,15 @@ class VerifyAndRegisterController extends JetFormController with OtpTimerMixin {
   @override
   onSuccess(result) {
     if (result != null) {
-      routeTo('/register/verify-otp');
+      Auth.authenticate(
+        data: result.toJson(),
+        token: result.token,
+      );
     }
   }
 
   @override
-  ModelParser<RegisterRequest>? get modelParser => RegisterRequest.fromJson;
+  JetDecoder<RegisterRequest>? get decoder => RegisterRequest.fromJson;
 
   @override
   void onInit() {
@@ -65,9 +70,10 @@ class VerifyAndRegisterController extends JetFormController with OtpTimerMixin {
   }
 
   resendOtp() async {
-    final OtpResponse = await sendOtpController.submitAction();
+    final OtpResponse = await sendOtpController.action();
     if (OtpResponse != null) {
       startTimer(OtpResponse.ttl);
+      showSuccess( 'Code sent successfully'.tr);
     } else {
       showError('Failed to resend OTP'.tr);
     }

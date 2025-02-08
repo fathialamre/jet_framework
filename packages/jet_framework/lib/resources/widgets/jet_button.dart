@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jet_framework/bindings/jet_injector.dart';
+import 'package:jet_framework/helpers/extensions/text_extensions.dart';
 
 enum ButtonAlignment {
   left,
@@ -132,7 +133,7 @@ class JetButton extends StatelessWidget {
               children: [
                 if (icon != null) Icon(icon, size: 18),
                 if (icon != null && label != null) const SizedBox(width: 8),
-                if (label != null) Text(label!),
+                if (label != null) Text(label!).bold(),
               ],
             );
 
@@ -151,7 +152,7 @@ class JetButton extends StatelessWidget {
               child: child,
             )
           : expanded
-              ? ElevatedButton(
+              ? FilledButton(
                   onPressed:
                       _isLoading.value ? null : () => _handlePress(context),
                   style: style,
@@ -160,7 +161,7 @@ class JetButton extends StatelessWidget {
               : Row(
                   mainAxisAlignment: _getMainAxisAlignment(buttonAlignment),
                   children: [
-                    ElevatedButton(
+                    FilledButton(
                       onPressed:
                           _isLoading.value ? null : () => _handlePress(context),
                       style: style,

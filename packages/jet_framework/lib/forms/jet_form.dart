@@ -14,10 +14,10 @@ class JetForm<T> extends StatelessWidget {
     this.dismissKeyboard = true,
     this.footer,
     this.submitLabel,
-    required this.formController,
+    required this.controller,
   });
 
-  final JetFormController formController;
+  final JetFormController controller;
 
   /// Optional widget to display above the form fields.
   final Widget? header;
@@ -27,35 +27,38 @@ class JetForm<T> extends StatelessWidget {
   final String? submitLabel;
 
   /// Optional footer widget builder.
-  final Widget Function(BuildContext context)? footer;
+  final Widget? footer;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: FormBuilder(
-        key: formController.formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (header != null) header!,
-            const SizedBox(height: 10),
-            ...formController.fields.map((field) {
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.h),
-                child: field,
-              );
-            }),
-            const SizedBox(height: 10),
-            footer != null
-                ? footer!(context)
-                : JetButton.elevated(
-                    expanded: true,
-                    label: submitLabel ?? 'Submit'.tr,
-                    onPressed: () async {
-                      await formController.submit();
-                    },
-                  ),
-          ],
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+        child: FormBuilder(
+          key: controller.formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (header != null) header!,
+              const SizedBox(height: 10),
+              ...controller.fields.map((field) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  child: field,
+                );
+              }),
+              const SizedBox(height: 10),
+              footer != null
+                  ? footer!
+                  : JetButton.elevated(
+                      expanded: true,
+                      label: submitLabel ?? 'Submit'.tr,
+                      onPressed: () async {
+                        await controller.submit();
+                      },
+                    ),
+            ],
+          ),
         ),
       ),
     );

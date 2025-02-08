@@ -7,13 +7,17 @@ import 'package:jet_framework/forms/jet_form_controller.dart';
 import 'package:jet_framework/router/jet_router.dart';
 
 class SendOtpController extends JetFormController<OtpResponse?, OtpRequest> {
-  RegisterService registerService = RegisterService();
+  @override
+  RegisterService get service => RegisterService();
+
+  @override
+  bool get showErrorToast => false;
 
   @override
   List<JetField> get fields => [
         JetTextField(
           name: 'phone',
-          initialValue: '0913335399',
+          initialValue: '0913335392',
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.phone),
           ),
@@ -48,8 +52,8 @@ class SendOtpController extends JetFormController<OtpResponse?, OtpRequest> {
       ];
 
   @override
-  Future<OtpResponse?> submitAction() {
-    return registerService.registerOtp(otpRequest: formValue);
+  Future<OtpResponse?> action() {
+    return service.registerOtp(otpRequest: formValue);
   }
 
   @override
@@ -63,5 +67,5 @@ class SendOtpController extends JetFormController<OtpResponse?, OtpRequest> {
   }
 
   @override
-  ModelParser<OtpRequest>? get modelParser => OtpRequest.fromJson;
+  JetDecoder<OtpRequest>? get decoder => OtpRequest.fromJson;
 }

@@ -48,30 +48,16 @@ class OtpTimerWidget extends StatelessWidget {
             Text(
               'Do not receive code?'.tr,
             ).bold(),
-            remainingTime.value > 0
-                ? Text('${'Resend code after'.tr} $formattedTime')
-                    .color(
-                      Theme.of(context).colorScheme.primary,
-                    )
-                    .titleSmall(context)
-                    .bold()
-                    .paddingOnly(top: 18)
-                : JetButton.text(
-                    label: 'Resend code'.tr,
-                    onPressed: remainingTime.value == 0
-                        ? () async {
-                            await resendOtp();
-                          }
-                        : null,
-                    style: ButtonStyle(
-                      textStyle: WidgetStateProperty.all(
-                        Theme.of(context)
-                            .textTheme
-                            .titleSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
+            JetButton.text(
+              label: remainingTime.value > 0
+                  ? '${'Resend code after'.tr} $formattedTime'
+                  : 'Resend code'.tr,
+              onPressed: remainingTime.value == 0
+                  ? () async {
+                      await resendOtp();
+                    }
+                  : null,
+            ),
           ],
         ).paddingOnly(
           top: 20,

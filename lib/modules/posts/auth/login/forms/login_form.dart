@@ -5,16 +5,20 @@ import 'package:jet_app/modules/posts/auth/login/services/login_service.dart';
 import 'package:jet_framework/auth/auth.dart';
 import 'package:jet_framework/forms/jet_filed.dart';
 import 'package:jet_framework/forms/jet_form_controller.dart';
+import 'package:jet_framework/helpers/helper.dart';
 import 'package:jet_framework/jet_framework.dart';
 
 class LoginController extends JetFormController<User?, LoginRequest> {
   LoginService loginService = LoginService();
 
   @override
+  bool get showErrorToast => true;
+
+  @override
   List<JetField> get fields => [
         JetTextField(
           name: 'phone',
-          initialValue: '0913335396',
+          initialValue: '0913335394',
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.phone),
             hintText: '09xxxxxxxx',
@@ -40,14 +44,8 @@ class LoginController extends JetFormController<User?, LoginRequest> {
       ];
 
   @override
-  Future<User?> submitAction() {
+  Future<User?> action() {
     return loginService.login(loginRequest: formValue);
-  }
-
-  @override
-  onError(Object error, StackTrace stackTrace) {
-    // dump(error);
-    // showErrorToast(error);
   }
 
   @override
@@ -61,5 +59,5 @@ class LoginController extends JetFormController<User?, LoginRequest> {
   }
 
   @override
-  ModelParser<LoginRequest>? get modelParser => LoginRequest.fromJson;
+  JetDecoder<LoginRequest>? get decoder => LoginRequest.fromJson;
 }

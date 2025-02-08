@@ -18,18 +18,19 @@ class JetTheme implements JetBaseTheme {
   @override
   ThemeData get light => FlexThemeData.light(
         fontFamily: fontFamily,
-        scheme: FlexScheme.green,
+        scheme: FlexScheme.blue,
         surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
         blendLevel: 2,
         subThemesData: const FlexSubThemesData(
           inputDecoratorIsDense: true,
-          elevatedButtonRadius: 8.0,
           interactionEffects: true,
           tintedDisabledControls: true,
           blendOnLevel: 10,
           useM2StyleDividerInM3: true,
           elevatedButtonSchemeColor: SchemeColor.surface,
           elevatedButtonSecondarySchemeColor: SchemeColor.primary,
+          elevatedButtonRadius: 8.0,
+          filledButtonRadius: 8.0,
           outlinedButtonOutlineSchemeColor: SchemeColor.primary,
           outlinedButtonPressedBorderWidth: 2.0,
           toggleButtonsBorderSchemeColor: SchemeColor.primary,
@@ -71,12 +72,11 @@ class JetTheme implements JetBaseTheme {
   @override
   ThemeData get dark => FlexThemeData.dark(
         fontFamily: fontFamily,
-        scheme: FlexScheme.green,
+        scheme: FlexScheme.blue,
         surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
         blendLevel: 8,
         subThemesData: const FlexSubThemesData(
           inputDecoratorIsDense: true,
-          elevatedButtonRadius: 8.0,
           interactionEffects: true,
           tintedDisabledControls: true,
           blendOnLevel: 8,
@@ -86,6 +86,8 @@ class JetTheme implements JetBaseTheme {
           outlinedButtonPressedBorderWidth: 2.0,
           elevatedButtonSchemeColor: SchemeColor.surface,
           elevatedButtonSecondarySchemeColor: SchemeColor.primary,
+          elevatedButtonRadius: 8.0,
+          filledButtonRadius: 8.0,
           toggleButtonsBorderSchemeColor: SchemeColor.primary,
           segmentedButtonSchemeColor: SchemeColor.primary,
           segmentedButtonBorderSchemeColor: SchemeColor.primary,

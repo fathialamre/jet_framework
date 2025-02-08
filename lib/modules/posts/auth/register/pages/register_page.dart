@@ -5,36 +5,36 @@ import 'package:jet_framework/bindings/jet_injector.dart';
 import 'package:jet_framework/forms/jet_form.dart';
 import 'package:jet_framework/helpers/extensions/text_extensions.dart';
 import 'package:jet_framework/jet_framework.dart';
+import 'package:jet_framework/resources/views/jet_widget.dart';
+import 'package:jet_framework/resources/widgets/jet_app_bar.dart';
+import 'package:jet_framework/resources/widgets/jet_button.dart';
+import 'package:jet_framework/resources/widgets/jet_page_header.dart';
+import 'package:jet_framework/router/jet_router.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends JetWidget<SendOtpController> {
   RegisterPage({super.key});
-
-  final SendOtpController sendOtpController = find<SendOtpController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'.tr).titleMedium(context),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      appBar: JetAppBar(title: 'Create account'.tr),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             JetForm<OtpResponse>(
-              header: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.person_outline, size: 60),
-                  Text('Register'.tr)
-                      .titleLarge(context)
-                      .bold()
-                      .paddingSymmetric(vertical: 10),
-                  Text('Enter your data to receive OTP'.tr)
-                      .titleMedium(context),
-                ],
+              header: JetPageHeader(
+                title: 'Create account'.tr,
+                description: 'Please enter your credentials'.tr,
+                icon: Icons.person_outline,
               ),
-              formController: sendOtpController,
+              controller: controller,
+              submitLabel: 'Create account'.tr,
+            ),
+            JetButton.text(
+              label: 'Login'.tr,
+              onPressed: () {
+                routeBack();
+              },
             ),
           ],
         ),

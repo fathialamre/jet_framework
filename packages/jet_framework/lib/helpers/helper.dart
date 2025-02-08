@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:jet_framework/bindings/jet_injector.dart';
 import 'package:jet_framework/exceptions/jet_exception_handler.dart';
 import 'package:jet_framework/helpers/jet_logger.dart';
+import 'package:jet_framework/theme/jet_style.dart';
 
 String get getBaseUrl => dotenv.get('BASE_URL', fallback: '');
 
@@ -44,6 +45,20 @@ showToast(BuildContext context, String message, {bool isError = false}) {
 }
 
 showError(String message) {
+  Get.showSnackbar(
+    GetSnackBar(
+      borderRadius: 8,
+      margin: const EdgeInsets.all(16),
+      message: message,
+      backgroundColor: JetStyle.isDark()
+          ? Theme.of(Get.context!).colorScheme.inversePrimary
+          : Colors.black87,
+      duration: const Duration(seconds: 3),
+    ),
+  );
+}
+
+showSuccess(String message) {
   Get.showSnackbar(
     GetSnackBar(
       borderRadius: 8,

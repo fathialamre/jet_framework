@@ -12,6 +12,7 @@ class Auth {
   static Future<void> authenticate({
     required Map<String, dynamic> data,
     bool redirectToHome = true,
+    String? route,
     String? token,
   }) async {
     assert(data.isNotEmpty, '''
@@ -28,7 +29,7 @@ class Auth {
         await saveToken(token);
       }
       if (redirectToHome) {
-        routeToAndOffAll(JetApp.initialRoute);
+        routeToAndOffAll(route ?? JetApp.initialRoute);
       }
     } catch (e) {
       rethrow;
@@ -39,6 +40,7 @@ class Auth {
   static Future<void> logout() async {
     try {
       await JetStorage.remove(key: _key);
+      await JetStorage.remove(key: 'token');
       routeToAndOffAll(JetApp.loginRoute);
     } catch (e) {
       rethrow;
@@ -51,7 +53,7 @@ class Auth {
   }
 
   /// Retrieve the authenticated user data, optionally decoded into a specific model type [T].
-  static T? user<T>({ModelParser<T>? decoder}) {
+  static T? user<T>({Decoder<T>? decoder}) {
     final user = JetStorage.readJson(key: _key);
     if (user == null) return null;
 

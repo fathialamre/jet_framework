@@ -8,7 +8,9 @@ import 'package:jet_framework/forms/mixins/otp_timer_mixin.dart';
 import 'package:jet_framework/helpers/extensions/text_extensions.dart';
 import 'package:jet_framework/jet_framework.dart';
 import 'package:jet_framework/resources/widgets/buttons/jet_label_button.dart';
+import 'package:jet_framework/resources/widgets/jet_app_bar.dart';
 import 'package:jet_framework/resources/widgets/jet_button.dart';
+import 'package:jet_framework/resources/widgets/jet_page_header.dart';
 
 class VerifyRegisterOtpPage extends StatelessWidget {
   VerifyRegisterOtpPage({super.key});
@@ -21,39 +23,28 @@ class VerifyRegisterOtpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Verify OTP'.tr).titleMedium(context),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            JetForm<OtpResponse>(
-              header: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.check_circle_outline, size: 60),
-                  Text('Enter the verification code'.tr)
-                      .titleLarge(context)
-                      .bold()
-                      .paddingSymmetric(vertical: 10),
-                  Text('We have sent you the verification code'.tr)
-                      .labelSmall(context)
-                      .bold(),
-                ],
-              ),
-              formController: controller,
-              submitLabel: 'Verify'.tr,
+      appBar: JetAppBar(title: 'Verify account'.tr),
+      body: Column(
+        children: [
+          JetForm<OtpResponse>(
+            header: JetPageHeader(
+              title: 'Verify account'.tr,
+              description: 'Enter the code sent to your phone'.tr,
+              icon: Icons.lock_open_sharp,
             ),
-            OtpTimerWidget(
-              remainingTime: controller.remainingTime,
-              resendOtp: () async {
-                await controller.resendOtp();
-              },
-            ),
-          ],
-        ),
+            controller: controller,
+            submitLabel: 'Verify'.tr,
+          ),
+          OtpTimerWidget(
+            remainingTime: controller.remainingTime,
+            resendOtp: () async {
+              await controller.resendOtp();
+            },
+          ),
+        ],
       ),
     );
   }
 }
+
+

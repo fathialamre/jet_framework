@@ -5,49 +5,39 @@ import 'package:jet_framework/bindings/jet_injector.dart';
 import 'package:jet_framework/forms/jet_form.dart';
 import 'package:jet_framework/helpers/extensions/text_extensions.dart';
 import 'package:jet_framework/jet_framework.dart';
+import 'package:jet_framework/resources/views/jet_widget.dart';
+import 'package:jet_framework/resources/widgets/jet_app_bar.dart';
+import 'package:jet_framework/resources/widgets/jet_button.dart';
+import 'package:jet_framework/resources/widgets/jet_page_header.dart';
 import 'package:jet_framework/router/jet_router.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends JetWidget<LoginController> {
   LoginPage({super.key});
-
-  final LoginController formController = find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'.tr).titleMedium(context).bold(),
+      appBar: JetAppBar(
+        title: 'Login'.tr,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            JetForm<User>(
-              header: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.person_outline, size: 60),
-                  Text('Login'.tr)
-                      .titleLarge(context)
-                      .bold()
-                      .paddingSymmetric(vertical: 10),
-                  Text('Please enter your credentials'.tr).titleMedium(context),
-                ],
-              ),
-              formController: formController,
+      body: Column(
+        children: [
+          JetForm<User>(
+            header: JetPageHeader(
+              title: 'Login'.tr,
+              description: 'Please enter your credentials'.tr,
+              icon: Icons.person_outline,
             ),
-            InkWell(
-              onTap: () {
-                routeTo('/register');
-              },
-              child: Text('Register'.tr)
-                  .titleMedium(context)
-                  .color(context.theme.primaryColor)
-                  .bold()
-                  .paddingSymmetric(vertical: 10),
-            )
-          ],
-        ),
+            controller: controller,
+            submitLabel: 'Login'.tr,
+          ),
+          JetButton.text(
+            label: 'Create account'.tr,
+            onPressed: () {
+              routeTo('/register');
+            },
+          )
+        ],
       ),
     );
   }

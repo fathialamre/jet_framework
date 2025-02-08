@@ -45,7 +45,7 @@ class JetSession {
     // Get.offAllNamed(Jet.authRoute);
   }
 
-  static T auth<T>({ModelParser<T>? decoder}) {
+  static T auth<T>({Decoder<T>? decoder}) {
     // Retrieve the local session data from storage
     final localSession = JetStorage.readJson(key: 'auth');
 
@@ -81,7 +81,7 @@ class JetSession {
       isAuthenticated ? JetStorage.read(key: 'token') : '';
 }
 
-T auth<T>({ModelParser<T>? decoder}) {
+T auth<T>({Decoder<T>? decoder}) {
   return JetSession.auth<T>(decoder: decoder);
 }
 

@@ -12,7 +12,7 @@ import 'package:jet_framework/state/jet_state.dart';
 
 import 'jet_filed.dart';
 
-typedef ModelParser<R> = R Function(Map<String, dynamic> json);
+typedef JetDecoder<R> = R Function(Map<String, dynamic> json);
 
 /// A controller for managing form data and submission logic.
 ///
@@ -35,7 +35,7 @@ abstract class JetFormController<T, R> extends GetxController {
 
   /// Function to parse the form data into a request object of type [R].
   /// Override this getter to provide a custom parser.
-  ModelParser<R>? get modelParser => null;
+  JetDecoder<R>? get decoder => null;
 
   /// Returns the parsed form data or raw data if no parser is provided.
   R get formValue => _getFormValue(true);
@@ -63,7 +63,7 @@ abstract class JetFormController<T, R> extends GetxController {
   /// Submits the form and returns a [Future] with the result.
   ///
   /// Override this method to implement custom submission logic.
-  Future<T?> submitAction();
+  Future<T?> action();
 
   /// Handles form submission, including success and error callbacks.
   Future<void> submit() async {
@@ -72,7 +72,7 @@ abstract class JetFormController<T, R> extends GetxController {
       if (formKey.currentState?.saveAndValidate() ?? false) {
         isLoading.value = true;
         // Call the form action and handle the response
-        final response = await submitAction();
+        final response = await action();
         if (response != null) {
           onSuccess(response);
         }
@@ -110,10 +110,8 @@ abstract class JetFormController<T, R> extends GetxController {
     tryWithDump(
       () {
         if (formState?.saveAndValidate() ?? false) {
-          if (toModel && modelParser != null) {
-            dump(formState!.value);
-            dump(modelParser);
-            return modelParser!(formState.value);
+          if (toModel && decoder != null) {
+            return decoder!(formState!.value);
           }
           return formState!.value; // Return raw data if no parser is provided
         }
@@ -122,8 +120,8 @@ abstract class JetFormController<T, R> extends GetxController {
     );
     try {
       if (formState?.saveAndValidate() ?? false) {
-        if (toModel && modelParser != null) {
-          return modelParser!(formState!.value);
+        if (toModel && decoder != null) {
+          return decoder!(formState!.value);
         }
         return formState!.value; // Return raw data if no parser is provided
       }
